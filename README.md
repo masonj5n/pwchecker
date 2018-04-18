@@ -3,7 +3,7 @@
 Exports a single function:
 
 ```go
-CheckForPwnage(passwd string) (bool, string, string)
+func CheckForPwnage(pw string) (*Pwd, error)
 ```
 
 The function checks the password using the http://haveibeenpwned.com API and returns true if it has been seen
