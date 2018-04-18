@@ -1,4 +1,4 @@
-# passwordChecker
+# pwchecker
 
 Exports a single function:
 
