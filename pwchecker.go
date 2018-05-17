@@ -29,7 +29,7 @@ type Pwd struct {
 func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 	// Check Passphrase not empty
 	if len(pw) < 1 {
-		return pwd, ErrPassphraseEmpty
+		return &Pwd{false, pw, ""}, ErrPassphraseEmpty
 	}
 
 	// Create SHA1 hash of passphrase
@@ -42,12 +42,12 @@ func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 	// Send request to pwnedpassword API
 	response, err := http.Get(fmt.Sprintf(pwnedURL, pfx))
 	if err != nil {
-		return pwd, fmt.Errorf("HTTP request failed with error; %s", err)
+		return &Pwd{false, pw, ""}, fmt.Errorf("HTTP request failed with error; %s", err)
 	}
 	defer response.Body.Close()
 	data, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return pwd, fmt.Errorf("HTTP request body read failed with error; %s", err)
+		return &Pwd{false, pw, ""}, fmt.Errorf("HTTP request body read failed with error; %s", err)
 	}
 	// Check API Response
 	resp := strings.Split((string(data)), "\n")
@@ -61,5 +61,5 @@ func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 		}
 	}
 
-	return pwd, err
+	return &Pwd{false, pw, ""}, err
 }
