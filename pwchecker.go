@@ -18,14 +18,16 @@ var (
 	ErrPassphraseEmpty = errors.New("Passphrase Input Empty")
 )
 
+// Pwd is returned as a struct pointer when calling CheckForPwnage
 type Pwd struct {
-	Pwnd   bool
-	Pwd    string
-	TmPwnd string
+	Pwnd   bool   // Pwnd returns true if passphrase is found pwned via API
+	Pwd    string // Pwd returns the passphrase string passed to the function
+	TmPwnd string // TmPwnd returns the number of times the passphrase was found in the database
 }
 
 // CheckForPwnage takes passphrase as string, sends request to API and returns Pwd and error
 func CheckForPwnage(pw string) (pwd *Pwd, err error) {
+	// Check Passphrase not empty
 	if len(pw) < 1 {
 		return pwd, ErrPassphraseEmpty
 	}
@@ -47,8 +49,11 @@ func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 	if err != nil {
 		return pwd, fmt.Errorf("HTTP request body read failed with error; %s", err)
 	}
+	// Check API Response
 	resp := strings.Split((string(data)), "\n")
+	// Check hash prefix against suffixes returned in API response
 	for i := range resp {
+		// if prefix and suffix match API response, return passphrase as pwned=true
 		if sfx == resp[i][0:35] {
 			reg := regexp.MustCompile("[^0-9]+")
 			sanstrng := reg.ReplaceAllString(string(resp[i][36:]), "")
