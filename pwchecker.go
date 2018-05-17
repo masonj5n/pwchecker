@@ -42,7 +42,7 @@ func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 	if err != nil {
 		return pwd, fmt.Errorf("HTTP request failed with error; %s", err)
 	}
-
+	defer response.Body.Close()
 	data, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return pwd, fmt.Errorf("HTTP request body read failed with error; %s", err)
