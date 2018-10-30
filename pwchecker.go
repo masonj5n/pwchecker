@@ -12,12 +12,15 @@ import (
 
 const pwnedURL = "https://api.pwnedpasswords.com/range/%s"
 
+// Pwd stores the results of CheckForPwnage, Pwnd is true if the password has been pwned, flase otherwise. Pwd is the password
+// originally queried, and TmPwnd is the number of times the password has been pwned as reported by haveibeenpwned
 type Pwd struct {
 	Pwnd   bool
 	Pwd    string
 	TmPwnd string
 }
 
+// CheckForPwnage queries the haveibeenpwned api and returns information about a given password
 func CheckForPwnage(pw string) (*Pwd, error) {
 
 	hash := sha1.New()
