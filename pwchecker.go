@@ -13,6 +13,7 @@ import (
 
 const pwnedURL = "https://api.pwnedpasswords.com/range/%s"
 
+
 var (
 	// ErrPassphraseEmpty indicates passphrase input was less than 1 character
 	ErrPassphraseEmpty = errors.New("Passphrase Input Empty")
