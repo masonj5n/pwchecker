@@ -1,4 +1,5 @@
 # pwchecker
+[![Go Report Card](https://goreportcard.com/badge/github.com/masonj88/pwchecker)](https://goreportcard.com/report/github.com/masonj88/pwchecker)
 
 Exports a single function:
 
