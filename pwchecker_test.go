@@ -14,7 +14,7 @@ func TestCheckForPwnage(t *testing.T) {
 	assert.NotEmpty(t, pwd.Pwd)
 
 	// Check Password "", should return Passphrase Empty error
-	pwd2, err := CheckForPwnage("")
+	pwd2, _ := CheckForPwnage("")
 	assert.Error(t, ErrPassphraseEmpty)
 	assert.EqualValues(t, "", pwd2.Pwd)
 	assert.EqualValues(t, "", pwd2.TmPwnd)
