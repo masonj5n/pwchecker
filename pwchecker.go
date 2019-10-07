@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 )
 
 const pwnedURL = "https://api.pwnedpasswords.com/range/%s"
@@ -23,6 +24,11 @@ type Pwd struct {
 	Pwnd   bool   // Pwnd returns true if passphrase is found pwned via API
 	Pwd    string // Pwd returns the passphrase string passed to the function
 	TmPwnd string // TmPwnd returns the number of times the passphrase was found in the database
+}
+
+// Modify a default http.Client to have a timeout of 2 seconds
+var client = &http.Client{
+	Timeout: time.Second * 2,
 }
 
 // CheckForPwnage takes passphrase as string, sends request to API and returns Pwd and error
@@ -40,7 +46,7 @@ func CheckForPwnage(pw string) (pwd *Pwd, err error) {
 	sfx := strings.ToUpper(hex.EncodeToString(hash.Sum(nil))[5:])
 
 	// Send request to pwnedpassword API
-	response, err := http.Get(fmt.Sprintf(pwnedURL, pfx))
+	response, err := client.Get(fmt.Sprintf(pwnedURL, pfx))
 	if err != nil {
 		return &Pwd{false, pw, ""}, fmt.Errorf("HTTP request failed with error; %s", err)
 	}
