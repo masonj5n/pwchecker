@@ -1,3 +1,3 @@
-module github.com/masonj88/pwchecker
+module github.com/masonj188/pwchecker
 
 go 1.13
