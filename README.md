@@ -1,5 +1,5 @@
 # pwchecker
-[![Go Report Card](https://goreportcard.com/badge/github.com/masonj88/pwchecker)](https://goreportcard.com/report/github.com/masonj88/pwchecker)
+[![Go Report Card](https://goreportcard.com/badge/github.com/masonj188/pwchecker)](https://goreportcard.com/report/github.com/masonj188/pwchecker)
 
 Exports a single function:
 
