@@ -28,7 +28,7 @@ type Pwd struct {
 
 // Modify a default http.Client to have a timeout of 2 seconds
 var client = &http.Client{
-	Timeout: time.Second * 2,
+	Timeout: time.Second * 10,
 }
 
 // CheckForPwnage takes passphrase as string, sends request to API and returns Pwd and error
